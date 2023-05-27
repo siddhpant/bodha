@@ -1,0 +1,21 @@
+# Note: Indentation here is of 2 spaces.
+
+name: Send website regeneration trigger on push
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dispatch trigger
+      uses: peter-evans/repository-dispatch@v2
+      with:
+        token: ${{ secrets.GH_PAGES_TOKEN }}
+        repository: siddhpant/siddhpant.github.io
+        event-type: generate
+
+# End of file.
