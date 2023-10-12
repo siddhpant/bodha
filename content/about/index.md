@@ -8,7 +8,7 @@ hideComments: True
 
 # Hi there!
 
-I'm Siddh, and this is my personal blog where I will write randomly about random stuff. I will also be moving my existing stuff here, for example, selected answers from Quora.
+I'm Siddh, and this is my personal blog where I will write randomly about random stuff. Views are my own, and does not necessarily reflect that of anyone else.
 
 Find or contact me at: [GitHub](https://github.com/siddhpant) • [GitLab](https://gitlab.com/siddhpant) • [Email](https://siddh.me/email_me) • [Matrix](https://matrix.to/#/@siddhpant:matrix.org) • OFTC (siddh)
 
