@@ -60,7 +60,7 @@ Khan Academy is good for the following subjects:
 
 While it may not cover everything (though a major part is covered), what it covers is done in a very good way. Outside of it, you may search on Brilliant (yes), OCW, NPTEL, etc. I'll add them towards the end of this section. Or you can just read the books, whichever you have.
 
-Fourier is missing, and Laplace is not really explained well (because Fourier isn't there). But these things you learn during Signals course again, with the reason why they were made in the first place, so maybe it's okay. Laplace and differential equations are encountered even earlier, during the Control Systems course.
+Fourier is missing, and Laplace is not really explained well (because Fourier isn't there). But these things you learn during Signals course again (signals playlist has an excellent explanation), with the reason why they were made in the first place, so maybe it's okay. Laplace and differential equations are encountered even earlier, during the Control Systems course.
 
 Wikipedia is unironically a good resource, especially for stuff like sequences and series.
 
@@ -72,6 +72,8 @@ Probability and Statistics:
 -   [Ms Aerin articles on Medium](https://automata88.medium.com/list/ap-statistics-intuition-cacc224d5e7d)
 -   [Statistics 110: Probability - Prof. Joe Blitzstein, Harvard University](https://www.youtube.com/playlist?list=PL2SOU6wwxB0uwwH80KTQ6ht66KWxbzTIo)
 -   [Physical Applications of Stochastic Processes - Prof. V. Balakrishnan, IIT Madras](https://nptel.ac.in/courses/115106089). This is an advanced course if you like the subject.
+
+Edit: A friend suggested [Steve Brunton](https://www.youtube.com/@Eigensteve) for Fourier series and transform, and [Dr. Trefor Bazett](https://www.youtube.com/c/drtreforbazett) for differential equations. Do check them out!
 
 <br>
 
