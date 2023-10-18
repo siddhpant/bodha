@@ -1,6 +1,8 @@
 ---
 title: Running keyutils tests
 tags: ["kernel", "debugging", "tests", "keyutils", "linux"]
+aliases:
+    - running-keyutils-tests
 ---
 
 It's not very apparent how to run the tests in the keyutils repo ([kernel/git/dhowells/keyutils.git - Key management utilities](https://git.kernel.org/pub/scm/linux/kernel/git/dhowells/keyutils.git)), especially if you don't work on kernel areas like keyrings and watch queue.

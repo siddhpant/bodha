@@ -2,6 +2,8 @@
 title: Study resources for electronics and other subjects
 tags: ["electronics", "resources", "learning", "digital", "analog", "vlsi", "communication", "signals", "ai", "embedded", "circuits", "antenna"]
 toc: true
+aliases:
+    - ece-study-resources
 ---
 
 ## Navigation
