@@ -140,7 +140,7 @@ kgit-config() {
 
 Now, you can just use `kgit-config` on terminal and have everything done for you.
 
-Even though this is a one-time setup (because you use/copy this repo in the end), it's good to have this alias, because you never know.
+Even though this is a one-time setup (because you use/copy this repo in the end), it's good to have this alias. You may also work on subsystem-specific trees, linux-next, etc., mainline isn't the only repo.
 
 ---
 
