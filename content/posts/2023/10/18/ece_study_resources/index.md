@@ -321,6 +321,22 @@ For book, go with `Discrete-Time Signal Processing - Oppenheim, Schafer, Buck`. 
 
 <br>
 
+### Electromagnetic Theory
+
+Prerequisites: Vector calculus. Very important! Didn't study this subject properly / much :P, but here are some good resources:
+
+[Electromagnetic Fields - Prof. Harishankar Ramachandran, IIT Madras](https://nptel.ac.in/courses/108106073)
+
+[Transmission Lines and EM Waves - Prof. R.K. Shevgaonkar, IIT Bombay](https://nptel.ac.in/courses/117101056)
+
+Both the NPTEL playlists are good! It's up to your tastes to choose any one. The first one is using a blackboard, while the second one uses digital slides and paper + marker.
+
+Prof. Shevgaonkar has also written a book, `Electromagnetic Waves - R. K. Shevgaonkar`, which you can get.
+
+A good well-known book is `Elements of Electromagnetics - Matthew N.O. Sadiku`, which is what I was suggested too.
+
+<br>
+
 ### Analog and Digital Communication
 
 [Communications Engineering I -  Prof. Ali Muqaibel, KFUPM](https://www.youtube.com/playlist?list=PLlQim6boihdhI0Jw95zxBYcw-NzPpLQFC)
@@ -333,7 +349,7 @@ If you want to quickly learn the subject, this is the playlist you ***need*** to
 
 This is a hard and high IQ subject, but also very interesting. It relates to a major part of our everyday macro world -  you'll start seeing antennas everywhere for the rest of your life once you start learning this subject!
 
-*Warning:* You must have a good grasp of vector calculus! Otherwise in your quest to avoid it via integral relations, you're gonna mess everything up and fail! Yes, that's very specific :P
+*Warning:* You must know electromagnetism (like Maxwell's equations etc), and have a good grasp of vector calculus! Otherwise in your quest to avoid it via integral relations, you're gonna mess everything up and fail! Yes, that's very specific :P
 
 Here are some videos I'd suggest watching:
 
