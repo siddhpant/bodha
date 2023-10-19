@@ -147,7 +147,7 @@ Also, [Ben Eater](https://www.youtube.com/@BenEater) as always is an extremely g
 
 <br>
 
-### Advanced µc / µp, like ARM7
+### Advanced µc / µp, ARM7
 
 Start with [introduction by Bharat Acharya](https://www.youtube.com/watch?v=fI20Bsx3EPM). It is an **extremely** good video and will get you up to speed very quickly.
 
