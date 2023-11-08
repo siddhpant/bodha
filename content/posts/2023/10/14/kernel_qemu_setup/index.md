@@ -10,7 +10,7 @@ Setting up kernel for debugging can be a confusing task for a beginner. [It cert
 
 In this post, I'll outline a way to quickly set up your computer to compile and run kernels on the fly. You need to never hassle about it again, we will make aliases along the way so that you just have to use simple commands to do things. Tab completion auto-filling the command name makes things very convenient. 
 
-Of course, one should know what an alias is doing before adding them for general use in `.bash_aliases`, so please make sure you understand everything and only then add it. Hopefully, I'll be clear, and the context will be obvious if I not mention some things. I assume basic familiarity with the kernel.
+Of course, one should know what an alias is doing before adding them for general use in `.bash_aliases`, so please make sure you understand everything and only then add it. Hopefully, I'll be clear, and the context will be obvious if I do not mention some things. I assume basic familiarity with the kernel.
 
 For those who have already read the article and just wants to see the bash aliases together, I have them (and a couple more) in the following gist: https://gist.github.com/siddhpant/0af22835e6825b90869f583749af2070
 
@@ -354,7 +354,7 @@ Now, if we use QEMU to run the kernel, it will be successful, but you'll notice 
 
 We need to use the `modules_install` make recipe to copy them to a location, and somehow access it inside the VM. We can achieve that using virtio 9P filesystem. That's why I had mentioned we need to enable it during the configuration.
 
-Let's copy the modules to a folder named `.compiled_modules` in the tree root. Note that the name starts with a dot, because the `.gitignore` is configured to ignore most hidden files and folders.
+Let's copy the modules to a new folder named `.compiled_modules` in the tree root. Note that the name starts with a dot, because the `.gitignore` is configured to ignore most hidden files and folders.
 
 ```shell
 $ make INSTALL_MOD_PATH=./.compiled_modules modules_install
@@ -382,6 +382,8 @@ kmake-all() {
 		fi
 
 		# Store loadable modules so we can use in QEMU via virtfs.
+		# Note: We delete the old folder to avoid failing mkdir et al.
+		rm -rf .compiled_modules
 		make INSTALL_MOD_PATH=./.compiled_modules modules_install
 
 		# Symlink to local dir in /lib/modules/*/build won't work in
