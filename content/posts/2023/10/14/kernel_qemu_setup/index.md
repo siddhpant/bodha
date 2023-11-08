@@ -433,7 +433,7 @@ We need to specify the location of our raw format Debian image we created using 
 
 We can set the networking options using `-net` option.
 
-We need to set SSH settings, as we discusses we allow for SSH login. For our case, we will set them using `-net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22`.
+We need to set SSH settings, as we discussed we allow for SSH login. For our case, we will set them using `-net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22` (config values straight from syzkaller docs[^syzkaller-qemu], you are free to change them).
 
 We also set the emulated NIC settings using `-net nic,model=e1000`.
 
@@ -481,6 +481,8 @@ To login using SSH, in a new window use the following SSH command (which uses th
 ```shell
 $ ssh -i $HOME/linux/qemu/image/bookworm.id_rsa -p 10021 -o "StrictHostKeyChecking no" root@localhost
 ```
+
+We use port 10021 because that's what we configured in QEMU.
 
 ### Terminating
 
