@@ -423,11 +423,23 @@ We need to specify the kernel image location using `-kernel` flag. If in the ker
 
 We can pass command-line parameters for the kernel using the `-append` option.
 
-The `console=ttyS0` param tells the kernel to dump the logs (same as `dmesg`) on ttyS0, which is the tty emulated by the QEMU window. The `root=/dev/sda` param tells the root partition of the image is `/dev/sda`. The `earlyprintk=serial` param tells the kernel to print the early boot messages over the serial port. The `net.ifnames=0` param tells the kernel to disable the Predictable Network Interface Names mechanism, which is needed if the "Failed to start Raise network interfaces" error is encountered[^syzkaller-troubleshooting]. The `nokaslr` param disables Kernel Address Space Layout Randomization (KASLR) and causes kernel to be loaded in its standard memory location. The `selinux=1 (or 0)` param enables/disables the SELinux module.
+-   `console=ttyS0` tells the kernel to dump the logs (same as `dmesg`) on ttyS0, which is the tty emulated by the QEMU window.
+-   `root=/dev/sda` tells the root partition of the image is `/dev/sda`.
+-   `earlyprintk=serial` tells the kernel to print the early boot messages over the serial port.
+-   `nokaslr` disables Kernel Address Space Layout Randomization (KASLR) and causes kernel to be loaded in its standard memory location.
+-   `net.ifnames=0` tells the kernel to disable the Predictable Network Interface Names mechanism, which is needed if the "Failed to start Raise network interfaces" error is encountered[^syzkaller-troubleshooting]. 
+-   `panic_on_oops=1` tells the kernel to panic when there is an oops, but we set this in the kernel config for compilation, so we need not add this.
+-   `panic_on_warn=1` tells the kernel to panic when a WARN (or a BUG) is encountered.
+-   `panic_on_io_nmi=1` tells the kernel to panic when an IO error causes an NMI.
+-   `panic_on_rcu_stall=1` tells the kernel to panic when an RCU stall is encountered.
+-   `max_rcu_stall_to_panic=1` tells the kernel to panic even for a single RCU stall.
+-   `panic_on_unrecovered_nmi=1` tells the kernel to panic when an unknown/memory NMI is encountered. This is by default off due to hardware vendor reasons, but for QEMU we don't have that limitation. See kernel docs.[^panic_on_unrecovered_nmi]
+-   `selinux=1` enables the SELinux module. Setting to `0` disables it.
 
 [^syzkaller-troubleshooting]: https://github.com/google/syzkaller/blob/master/docs/linux/troubleshooting.md
+[^panic_on_unrecovered_nmi]: [Documentation for /proc/sys/kernel/ — The Linux Kernel documentation](https://www.kernel.org/doc/html/latest/admin-guide/sysctl/kernel.html#panic-on-unrecovered-nmi)
 
-The arguments discussed above can be passed using `-append "console=ttyS0 root=/dev/sda earlyprintk=serial net.ifnames=0 nokaslr selinux=0"`.
+The arguments discussed above can be passed using `-append "console=ttyS0 root=/dev/sda earlyprintk=serial nokaslr net.ifnames=0 panic_on_warn=1 panic_on_io_nmi=1 panic_on_rcu_stall=1 max_rcu_stall_to_panic=1 panic_on_unrecovered_nmi=1 selinux=0"`.
 
 We need to specify the location of our raw format Debian image we created using the `-drive` option. For example, `-drive file=$HOME/linux/qemu/image/bookworm.img,format=raw`. Note the lack of space between the two kwargs, it is important so that QEMU parses it correctly as arguments to `-drive`.
 
@@ -463,7 +475,7 @@ $ qemu-system-x86_64 \
 	-m 4G \
 	-smp 6 \
 	-kernel ./arch/x86_64/boot/bzImage \
-	-append "console=ttyS0 root=/dev/sda earlyprintk=serial net.ifnames=0 nokaslr selinux=0" \
+	-append "console=ttyS0 root=/dev/sda earlyprintk=serial nokaslr net.ifnames=0 panic_on_warn=1 panic_on_io_nmi=1 panic_on_rcu_stall=1 max_rcu_stall_to_panic=1 panic_on_unrecovered_nmi=1 selinux=0" \
 	-drive file=$HOME/linux/qemu/image/bookworm.img,format=raw \
 	-net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22 \
 	-net nic,model=e1000 \
@@ -519,8 +531,11 @@ kemulate() {
 	qemu_args+=" "
 	
 	# Kernel command line parameters.
-	qemu_args+="-append \"console=ttyS0 root=/dev/sda earlyprintk=serial"
-	qemu_args+=" net.ifnames=0 nokaslr"
+	qemu_args+="-append \""
+	qemu_args+="console=ttyS0 root=/dev/sda earlyprintk=serial nokaslr "
+	qemu_args+="net.ifnames=0 panic_on_warn=1 panic_on_io_nmi=1 "
+	qemu_args+="panic_on_rcu_stall=1 max_rcu_stall_to_panic=1 "
+	qemu_args+="panic_on_unrecovered_nmi=1"
 	
 	if [[ "$1" == "--selinux" ]]; then
 		qemu_args+=" selinux=1"
