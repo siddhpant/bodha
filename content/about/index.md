@@ -4,6 +4,7 @@ layout: single
 showLastUpdated: False
 readingTime: False
 hideComments: True
+noindex: True
 ---
 
 # Hi there!
