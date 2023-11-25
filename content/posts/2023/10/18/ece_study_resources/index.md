@@ -383,6 +383,10 @@ For book  I'll recommend `Wireless Communications: Principles and Practice - The
 For videos, I'll post links to a couple of sources, choose whatever suits you the best.
 
 -   [@LTE4G on YouTube](https://www.youtube.com/@LTE4G/playlists). Good for concept building.
+-   Some LiveOverflow's videos:
+    -   [How do SIM Cards work? - SIMtrace](https://www.youtube.com/watch?v=iJFnYBJJiuQ)
+    -   [GSM Mobile Network Intro - Nokia Network Monitor](https://www.youtube.com/watch?v=IuxBfHnP5S0)
+    -   [Troopers 17 Badge ft. BadgeWizard](https://www.youtube.com/watch?v=gKHaKoPJN08)
 -   [Introduction to Wireless and Cellular Communications - Prof. David KoilPillai, IIT Madras](https://nptel.ac.in/courses/106106167)
 -   [Fundamentals Of Wireless Communication (Hindi) - Dr.Vivek Bohara, IIIT Delhi](https://nptel.ac.in/courses/108106192)
 -   [Short Course on Fundamentals of Wireless Communications - David Tse, UC Berkeley - The Qualcomm Institute](https://www.youtube.com/playlist?list=PLbbCsk7MUIGfynU-ONMbe-yZXWTgTX1YP)
