@@ -7,7 +7,7 @@ toc: true
 
 ## About DRM subsystem
 
-Direct Rendering Manager is very central from the point of view of usability — it is ***the*** subsystem responsible for showing what is on our screen, including this proposal. As such, it is directly responsible for enabling the wide adoption of Linux distros, and is what the user is visibly impacted by.
+Direct Rendering Manager is very central from the point of view of usability — it is ***the*** subsystem responsible for showing what is on our screen, including this post. As such, it is directly responsible for enabling the wide adoption of Linux distros, and is what the user is visibly impacted by.
 
 The DRM subsystem is populated largely by display drivers mainly maintained by the companies who make GPUs. The `drivers/gpu/drm` directory consisting of various drivers for various vendors and devices can be seen on nautilus as below:
 
