@@ -16,7 +16,7 @@ Here's a small note on the numbering system, given in Sri Desiraju Hanumanta Rao
 
 In the Indian counting system hundred thousands becomes one lakh (1,00,000), one hundred lakhs become one crore (1,00,00,000). The ancient Indian legionaries have names like
 
--   आयुत (aayuta) = one thousand per unit
+-   आयुत (aayuta) = ten thousand per unit
 -   शङ्कु (shanku) = one lakh crores, i.e., a trillion - 10<sup>12</sup>
 -   अर्बुद (arbuda) = 1000 × शङ्कु
 -   मध्यम (madhyama) = 10 × अर्बुद
