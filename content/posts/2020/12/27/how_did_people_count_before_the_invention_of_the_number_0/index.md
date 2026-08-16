@@ -16,6 +16,7 @@ Here's a small note on the numbering system, given in Sri Desiraju Hanumanta Rao
 
 In the Indian counting system hundred thousands becomes one lakh (1,00,000), one hundred lakhs become one crore (1,00,00,000). The ancient Indian legionaries have names like
 
+-   (Author's note: Non-standard description copied directly.)
 -   आयुत (aayuta) = one thousand per unit
 -   शङ्कु (shanku) = one lakh crores, i.e., a trillion - 10<sup>12</sup>
 -   अर्बुद (arbuda) = 1000 × शङ्कु
@@ -36,6 +37,8 @@ Govindaraja takes up the enumeration as given in Indian Astrology, which multipl
 >   'one, ten, hundred, thousand, ten thousand, one lakh, प्रयुतम् (prayutam), ten lakhs or a million, then a crore and then an अर्बुद (arbuda) ten-crore or a billion, and then ten arbuda-s makes one बृन्द (bRnda) and ten brinda-s make one खर्व (kharva) and ten kharva-s make one निखर्व (nikharva) and ten nikharva-s make one महा पद्म (mahaa padma) and ten mahaa padma-s make one शङ्कु (shanku), one lakh crores or a trillion, and ten shanku-s make one समुद्र (samudra) and then ten samudra-s make one अन्त (anta) and ten anta-s make a मध्यम (madhyama) and ten madhyama-s make one परार्ध (paraardha) it may be known thus...
 
 By this, the nomenclature of million, billion and trillion was there in ancient days and this may be observed by the names: प्रयुतम् : 'a million...', अर्बुद : 'a billion..', and शङ्कु : 'a trillion...', and this exactly relates to the decimal system which is based on the number ten, in which the smaller units are related to the principal units as powers of ten (units, tens, hundreds, thousands, etc.).
+
+---
 
 Don't mistake this as just having words for the powers of ten. In Sanskrit (and other Indian languages, but we're talking about ancient times here) one can make up a word for any number by following certain rules and compounding words.
 
