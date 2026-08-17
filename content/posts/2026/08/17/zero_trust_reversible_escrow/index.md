@@ -6,9 +6,7 @@ toc: true
 
 ## Introduction
 
-In 2025, a 57-year-old woman in Bengaluru was kept under constant video surveillance for 6 months by scammers claiming to be CBI/RBI/Cybercrime officials. In those 6 months, she was terrorized into making 187 separate bank transfers, draining ≈ ₹32 crore of her life savings.[^da-6m]
-
-[^da-6m]: [Bengaluru Woman Loses Rs 32 Crore In Digital Arrest That Lasted 6 Months](https://www.ndtv.com/bangalore-news/bengaluru-woman-loses-rs-32-crore-in-digital-arrest-that-lasted-6-months-9647994)
+In 2025, a 57-year-old woman in Bengaluru was kept under constant video surveillance for 6 months by scammers claiming to be CBI/RBI/Cybercrime officials. In those 6 months, she was terrorized into making 187 separate bank transfers, draining ≈ ₹32 crore of her life savings. ([NDTV](https://www.ndtv.com/bangalore-news/bengaluru-woman-loses-rs-32-crore-in-digital-arrest-that-lasted-6-months-9647994))
 
 There is a clear uptick in cases. So RBI put out a discussion paper. Reading about it on news motivated this post.
 
@@ -26,11 +24,9 @@ The main proposals which were reported visibly in the news were 1 and 4. Basical
 
 As you can imagine, this is a stupid, feel-good idea.
 
-- The ruthless "digital arrest" criminals manipulate people into isolating/locking themselves up for multiple hours, days[^da-15d], or even months[^da-6m] (like above). They don't care if the victim kills themselves the next moment on camera. A 1-hour delay is meaningless, the attacker will simply tell the victim the system is "processing" or forces them to break the payment into smaller chunks to bypass the threshold. A one-hour delay is not the same thing as a one-hour interruption of the attack.
+- The ruthless "digital arrest" criminals manipulate people into isolating/locking themselves up for multiple hours, days (like [this](https://www.indiatoday.in/cities/jaipur/story/digital-arrest-scam-jaipur-former-judge-loses-crore-to-fake-cbi-rbi-officials-ptag-2970183-2026-08-13)), or even months (like above). They don't care if the victim kills themselves the next moment on camera. A 1-hour delay is meaningless, the attacker will simply tell the victim the system is "processing" or forces them to break the payment into smaller chunks to bypass the threshold. A one-hour delay is not the same thing as a one-hour interruption of the attack.
 
 - Disabling transactions after the money has left your account achieves nothing. The act of disabling would happen when the victim is no longer panicked, i.e., after the damage is already done.
-
-[^da-15d]: [90-year-old Jaipur ex-judge held under 15-day digital arrest, loses Rs 2.5 crore](https://www.indiatoday.in/cities/jaipur/story/digital-arrest-scam-jaipur-former-judge-loses-crore-to-fake-cbi-rbi-officials-ptag-2970183-2026-08-13)
 
 We are asking the wrong question. The question isn't how to delay the *victim's* payment. It is how to choke the *attacker's* monetization. 
 
