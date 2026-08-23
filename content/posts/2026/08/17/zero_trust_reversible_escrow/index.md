@@ -200,12 +200,12 @@ Historical transaction familiarity can reduce friction, but no single successful
 
 - **Strict P2M Exemption:** Unilateral reversal workflows and provisional escrows are strictly disabled for verified P2M (Person-to-Merchant) transactions. Commercial commerce must route through standard payment gateway dispute and chargeback frameworks. Different payment relationships require different models of finality.
 
-- **Extended Escrows for Vulnerable Demographics:** Data shows that prolonged, multi-week digital arrests disproportionately target high-net-worth senior citizens. By default, the fast-track bypass feature should be disabled for high-risk demographics, and their escrow lock should be extended from 24 hours to **72 hours or more**. This ensures the escrow cannot be socially engineered out of them under any circumstances, unless they have explicitly opted-in to the bypass feature via an in-person branch mandate.
+- **Extended Escrows for Vulnerable Demographics:** From multiple news reports, we can infer that prolonged, multi-week digital arrests disproportionately target high-net-worth older or senior citizens. By default, the fast-track bypass feature should be disabled for high-risk demographics, and their escrow lock should be extended from 24 hours to **72 hours or more**. This ensures the escrow cannot be socially engineered out of them under any circumstances, unless they have explicitly opted-in to the bypass feature via an in-person branch mandate.
 
 ---
 
 ## Conclusion
 
-This architecture physically breaks the ROI loop of fraudsters by choking their instant liquidity while protecting the transactional integrity of genuine users.
+This architecture breaks the ROI loop of fraudsters by choking their instant liquidity while protecting the transactional integrity of genuine users.
 
 Delaying the sender's transfer merely tests how long a scammer can scream at a victim on the phone.
