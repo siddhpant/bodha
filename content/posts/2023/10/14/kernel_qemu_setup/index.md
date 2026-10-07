@@ -364,6 +364,14 @@ $ make INSTALL_MOD_PATH=./.compiled_modules modules_install
 
 So please delete that symlink. One can copy the entire tree to the `build` directory, but there is no need to. But it is a good idea to copy the config file, so the config of the currently running kernel is accessible inside the VM.
 
+Similarly, we might need the compiled kernel's UAPI headers, which naturally won't exist. Let's copy the headers into a new folder named `.compiled_headers` in the tree root with:
+
+```shell
+make INSTALL_HDR_PATH=./.compiled_headers headers_install
+```
+
+`headers_install` will install all the headers in the path we gave. We will make it accessible inside the VM using 9p, just like modules.
+
 ### kmake-all
 
 We can now put everything in a bash function as follows.
@@ -391,6 +399,10 @@ kmake-all() {
 		rm ./.compiled_modules/lib/modules/*/build
 		mkdir $(ls -d ./.compiled_modules/lib/modules/*)/build
 		cp .config ./.compiled_modules/lib/modules/*/build
+
+		# Similarly, store kernel headers.
+		rm -rf .compiled_headers
+		make INSTALL_HDR_PATH=./.compiled_headers headers_install
 	)
 }
 ```
@@ -451,15 +463,17 @@ We also set the emulated NIC settings using `-net nic,model=e1000`.
 
 We can store the PID of the QEMU VM using `-pidfile` option. For example, `-pidfile vm.pid`.
 
-We also mentioned we access the `.compiled_modules` inside the VM. We do that by setting a mount point for the 9p virtfs using the `-virtfs` option.[^qemu-9p] Specifically, we use the following (remember the lack of space after commas):
+We also mentioned we access the `.compiled_modules` and `.compiled_headers` inside the VM. We do that by setting the mount points for the 9p virtfs using the `-virtfs` option.[^qemu-9p] Specifically, we use the following (remember the lack of space after commas):
 
 [^qemu-9p]: [Documentation/9psetup - QEMU](https://wiki.qemu.org/Documentation/9psetup)
 
 ```
+# We use -virtfs twice because we add two mount points.
 -virtfs local,path=./.compiled_modules/lib/modules,mount_tag=compiled_modules,security_model=none
+-virtfs local,path=./.compiled_headers/include,mount_tag=compiled_headers,security_model=none
 ```
 
-The first argument specifies the filesystem driver. We simply use `local` so the individual virtual FS functions are translated directly to act on the host filesystem. The `path` specifies the path of the directory to mount (which in our case is the directory we want to be mounted to `/lib/modules` in the VM). `mount_tag` specifies the tag of the mount point inside the VM. The `security-model` specifies the security model for the files in path (credentials, attributes, etc.). We use `none` so files created in VM are stored as it is. You can read more on the QEMU docs.[^qemu-9p]
+Let's go through what we passed to a `-virtfs` option. The first argument specifies the filesystem driver. We simply use `local` so the individual virtual FS functions are translated directly to act on the host filesystem. The `path` specifies the path of the directory to mount (which in our case is the directory we want to be mounted to `/lib/modules` in the VM). `mount_tag` specifies the tag of the mount point inside the VM. The `security-model` specifies the security model for the files in path (credentials, attributes, etc.). We use `none` so files created in VM are stored as it is. You can read more on the QEMU docs.[^qemu-9p]
 
 Lastly, we can store all the output by piping the QEMU output to `tee` command.
 
@@ -481,6 +495,7 @@ $ qemu-system-x86_64 \
 	-net nic,model=e1000 \
 	-pidfile vm.pid \
 	-virtfs local,path=./.compiled_modules/lib/modules,mount_tag=compiled_modules,security_model=none \
+	-virtfs local,path=./.compiled_headers/include,mount_tag=compiled_headers,security_model=none \
 2>&1 | tee vm.log
 ```
 
@@ -567,7 +582,12 @@ kemulate() {
 	qemu_args+="-virtfs local,path=./.compiled_modules/lib/modules,"
 	qemu_args+="mount_tag=compiled_modules,security_model=none"
 	qemu_args+=" "
-	
+
+	# Use virtfs to get access to compiled kernel headers inside QEMU.
+	qemu_args+="-virtfs local,path=./.compiled_headers/include,"
+	qemu_args+="mount_tag=compiled_headers,security_model=none"
+	qemu_args+=" "
+
 	# Append the user args.
 	qemu_args+="$user_args"
 	
@@ -595,9 +615,9 @@ klogin() {
 
 ---
 
-## Editing fstab to mount /lib/modules inside the VM image
+## Editing fstab to mount /lib/modules and headers inside the VM image
 
-We booted into the VM, but we still have not mounted the 9P mount point we have created for `/lib/modules`.
+We booted into the VM, but we still have not mounted the 9P mount point we have created for `/lib/modules` and the kernel headers.
 
 We can use the command line to do it, but doing it everytime is a hassle. So, we just add an entry in `/etc/fstab` so that it is automatically mounted at boot.
 
@@ -606,9 +626,18 @@ Append the following in `/etc/fstab` and save:
 ```
 # <file system>		<mount pt>			<type>		<options>			<dump>	<pass>
 compiled_modules	/lib/modules			9p		trans=virtio,version=9p2000.L	0	0
+compiled_headers	/usr/include-kernel-headers	9p		trans=virtio,version=9p2000.L	0	0
 ```
 
-Now restart the VM (quit and `kemulate` again), and see if the folder in `/lib/modules` exist. If you followed everything correctly till now, it will be there.
+We mount the headers in a separate non-standard dir `/usr/include-kernel-headers`. The compilers need to be told to search the directory. Let's make it transparent by setting the environment variables as below:
+
+```
+# cat /etc/profile.d/kernel-headers.sh 
+export C_INCLUDE_PATH=/usr/include-kernel-headers${C_INCLUDE_PATH:+:$C_INCLUDE_PATH}
+export CPLUS_INCLUDE_PATH=/usr/include-kernel-headers${CPLUS_INCLUDE_PATH:+:$CPLUS_INCLUDE_PATH}
+```
+
+Now restart the VM (quit and `kemulate` again), and see if the folders in `/lib/modules` and `/usr/include-kernel-headers` exist. If you followed everything correctly till now, they will be there.
 
 ---
 
