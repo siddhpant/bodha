@@ -475,13 +475,14 @@ We also mentioned we access the `.compiled_modules` and `.compiled_headers` insi
 
 Let's go through what we passed to a `-virtfs` option. The first argument specifies the filesystem driver. We simply use `local` so the individual virtual FS functions are translated directly to act on the host filesystem. The `path` specifies the path of the directory to mount (which in our case is the directory we want to be mounted to `/lib/modules` in the VM). `mount_tag` specifies the tag of the mount point inside the VM. The `security-model` specifies the security model for the files in path (credentials, attributes, etc.). We use `none` so files created in VM are stored as it is. You can read more on the QEMU docs.[^qemu-9p]
 
-Lastly, we can store all the output by piping the QEMU output to `tee` command.
+Lastly, we can store all the output by piping the QEMU output to `tee` command. We will make a hidden folder to store it so git status output isn't
 
 ### The command
 
 Therefore, to run our compiled kernel on QEMU, we use the following command by putting together everything:
 
 ```shell
+$ mkdir .kemulate_logs
 $ qemu-system-x86_64 \
 	-cpu host \
 	-accel kvm \
@@ -496,7 +497,7 @@ $ qemu-system-x86_64 \
 	-pidfile vm.pid \
 	-virtfs local,path=./.compiled_modules/lib/modules,mount_tag=compiled_modules,security_model=none \
 	-virtfs local,path=./.compiled_headers/include,mount_tag=compiled_headers,security_model=none \
-2>&1 | tee vm.log
+2>&1 | tee ".kemulate_logs/vm_$(date '+%Y%m%d_%H%M%S').log"
 ```
 
 ### Logging in
@@ -522,62 +523,82 @@ We can put everything together, and allow for more user arguments which can over
 {{< code language="bash" title="kemulate" isCollapsed="true" >}}
 kemulate() {
 	qemu_args=""
+	qemu_binary=""
 
 	# We will pass user args to QEMU, except the flags.
 	# Since flag processing is needed, we will append them in the end.
 	# Also, by appending the user args at the end, the default arguments
 	# can be overriden by user.
 	user_args="$@"
-	
-	# Use host for the KVM on terminal.
-	qemu_args+="-cpu host -accel kvm -nographic"
+
+	# Check if ARM.
+	if [[ "$1" == "--arm" || -f .qemu_arm ]]; then
+		qemu_binary="qemu-system-arm64 -machine virt"
+		user_args="${user_args:5}"
+	else
+		qemu_binary="qemu-system-x86_64"
+
+		# Use host cpu.
+		qemu_args+="-cpu host"
+		qemu_args+=" "
+	fi
+
+	# Use KVM on terminal.
+	qemu_args+="-accel kvm -nographic"
 	qemu_args+=" "
-	
+
 	# Memory size.
 	qemu_args+="-m 4G"
 	qemu_args+=" "
-	
+
 	# Number of cores.
 	qemu_args+="-smp 6"
 	qemu_args+=" "
-	
+
 	# Kernel image location.
 	qemu_args+="-kernel ./arch/x86_64/boot/bzImage"
 	qemu_args+=" "
-	
+
 	# Kernel command line parameters.
 	qemu_args+="-append \""
 	qemu_args+="console=ttyS0 root=/dev/sda earlyprintk=serial nokaslr "
 	qemu_args+="net.ifnames=0 panic_on_warn=1 panic_on_io_nmi=1 "
 	qemu_args+="panic_on_rcu_stall=1 max_rcu_stall_to_panic=1 "
 	qemu_args+="panic_on_unrecovered_nmi=1"
-	
+
 	if [[ "$1" == "--selinux" ]]; then
 		qemu_args+=" selinux=1"
 		user_args="${user_args:9}"
 	else
 		qemu_args+=" selinux=0"
 	fi
-	
+
 	qemu_args+="\" "
-	
+
 	# Debian image to boot.
 	qemu_args+="-drive file=$HOME/linux/qemu/image/bookworm.img,"
 	qemu_args+="format=raw"
 	qemu_args+=" "
-	
+
+	# Add test images (creation: qemu-img create -f raw test.img 10G).
+	if [[ -f .qemu_test_imgs ]]; then
+		test_folder="$HOME/linux/qemu/test-images"
+		qemu_args+="-drive file=$test_folder/test.img,format=raw "
+		qemu_args+="-drive file=$test_folder/scratch.img,format=raw "
+	fi
+
 	# User settings for SSH.
 	qemu_args+="-net user,host=10.0.2.10,hostfwd=tcp:127.0.0.1:10021-:22"
 	qemu_args+=" "
-	
+
 	# NIC settings.
 	qemu_args+="-net nic,model=e1000"
 	qemu_args+=" "
-	
+
 	# PID file.
 	qemu_args+="-pidfile vm.pid"
 	qemu_args+=" "
-	
+
 	# Use virtfs to get access to loadable modules inside QEMU.
 	qemu_args+="-virtfs local,path=./.compiled_modules/lib/modules,"
 	qemu_args+="mount_tag=compiled_modules,security_model=none"
@@ -590,9 +611,11 @@ kemulate() {
 
 	# Append the user args.
 	qemu_args+="$user_args"
-	
+
 	# Run QEMU (eval used to avoid bash splitting arguments on spaces)
-	eval "qemu-system-x86_64 $qemu_args 2>&1 | tee vm.log"
+	mkdir .kemulate_logs
+	log_filename=".kemulate_logs/vm_$(date '+%Y%m%d_%H%M%S').log"
+	eval "$qemu_binary $qemu_args 2>&1 | tee $log_filename"
 }
 
 
@@ -607,9 +630,15 @@ Similarly, we can make a bash function for logging in via SSH (and store the out
 
 ```bash
 klogin() {
+	output_file="ssh_op_$(date '+%Y%m%d_%H%M%S').log"
+
+	if [[ -d ".kemulate_logs" ]]; then
+		output_file=".kemulate_logs/$output_file"
+	fi
+
 	ssh -i $HOME/linux/qemu/image/bookworm.id_rsa \
 		-p 10021 -o "StrictHostKeyChecking no" root@localhost \
-	2>&1 | tee ssh_op.log
+	2>&1 | tee $output_file
 }
 ```
 
