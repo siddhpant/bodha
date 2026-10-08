@@ -612,9 +612,11 @@ kemulate() {
 	# Append the user args.
 	qemu_args+="$user_args"
 
-	# Run QEMU (eval used to avoid bash splitting arguments on spaces)
-	mkdir .kemulate_logs
+	# Create log dir and name.
+	[[ -d ".kemulate_logs" ]] || mkdir .kemulate_logs
 	log_filename=".kemulate_logs/vm_$(date '+%Y%m%d_%H%M%S').log"
+
+	# Run QEMU (eval used to avoid bash splitting arguments on spaces)
 	eval "$qemu_binary $qemu_args 2>&1 | tee $log_filename"
 }
 
