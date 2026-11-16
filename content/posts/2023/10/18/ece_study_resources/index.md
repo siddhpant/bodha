@@ -115,7 +115,7 @@ Make sure to install the control and symbolic math toolbox! You might get a lice
 
 ### Digital System Design
 
-[Digital Circuits and Systems - Prof. S Srinivasan, IIT Madras](https://nptel.ac.in/courses/117/106/117106086/)
+[Digital Circuits and Systems - Prof. S Srinivasan, IIT Madras](https://nptel.ac.in/courses/117106086/)
 
 This NPTEL playlist is ***GOLD***. Just see the first video if you doubt me. If you study from this, you are going to impose dominance over others who are just coasting, and your path to studying advanced concepts, microprocessors, and VLSI will be a lot easier. Literally a zero to hero path. Diligently study and make notes!
 
@@ -198,7 +198,7 @@ The book has extremely good and lucid explanations, while packing a significant 
 
 And the book is enjoyable, unlike the boring one by Sung-Mo Kang.
 
-If you have time, you can see [Digital VLSI System Design - Prof. S. Srinivasan and Dr. S. Ramachandran, IIT Madras](https://nptel.ac.in/courses/117/106/117106092/).
+If you have time, you can see [Digital VLSI System Design - Prof. S. Srinivasan and Dr. S. Ramachandran, IIT Madras](https://nptel.ac.in/courses/117106092/).
 
 This is the sequel to the awesome digital circuits course by the same professor (initially), so you know it ***will*** be good!
 
